@@ -9,15 +9,10 @@ const styles = StyleSheet.create({
         alignItems: "center",
         width: "100%",
     },
-    numberIMC: {
-        fontSize: 48,
-        color: "#080807",
-        fontWeight: "bold",
-    },
     information: {
-        fontSize: 18,
+        fontSize: 16,
+        fontWeight:'300',
         color: "#080807",
-        fontWeight: "bold",
     },
 });
 export default styles;
