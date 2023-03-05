@@ -1,7 +1,8 @@
 import React, { useState } from "react";
-import { Text, TextInput, View, TouchableOpacity } from "react-native";
+import { Text, TextInput, View, TouchableOpacity, Alert } from "react-native";
 import ResultIMC from "./ResultIMC/";
 import styles from "./style";
+import { imcCalculator, getMessageIMC, getIMCClassification } from "./utils";
 
 export default function Form() {
   const [height, setHeight] = useState(null);
@@ -11,22 +12,30 @@ export default function Form() {
   const [textButton, setTextButton] = useState("Resultado");
   const [selectedButton, setSelectedButton] = useState(null);
 
-  function imcCalculator() {
-    return setIMC((weight / (height * height)).toFixed(2));
-  }
-
-  function validationIMC() {
-    if (weight != null && height != null) {
-      imcCalculator();
+  function handleValidationIMC() {
+    if (weight != null && height != null && selectedButton != null) {
+      const imcValue = imcCalculator(weight, height);
+      const message = getMessageIMC(imcValue, selectedButton);
+      setIMC(imcValue);
+      setMessageIMC(message);
       setHeight(null);
       setWeight(null);
-      setMessageIMC("Seu imc é igual:");
       setTextButton("Calcular novamente");
-      return;
+      handleShowResultDialog(imcValue, message);
+    } else {
+      setIMC(null);
+      setTextButton("Resultado");
+      setMessageIMC("Selecione sua idade, digite sua altura e seu peso.");
     }
-    setIMC(null);
-    setTextButton("Resultado");
-    setMessageIMC("Preencha o texto e altura");
+  }
+
+  function handleShowResultDialog(imcValue, message) {
+    Alert.alert(
+      "Resultado",
+      `Seu IMC é ${imcValue.toFixed(2)} - ${message}`,
+      [{ text: "OK" }],
+      { cancelable: false }
+    );
   }
 
   return (
@@ -39,7 +48,7 @@ export default function Form() {
           ]}
           onPress={() => setSelectedButton("adulto")}
         >
-          <Text style={[styles.ageButtonText, selectedButton === "adulto" && { color: "#FFFFFF" }]}>Adulto</Text>
+          <Text style={styles.ageButtonText}>Adulto</Text>
         </TouchableOpacity>
         <TouchableOpacity
           style={[
@@ -48,7 +57,7 @@ export default function Form() {
           ]}
           onPress={() => setSelectedButton("idoso")}
         >
-          <Text style={[styles.ageButtonText, selectedButton === "idoso" && { color: "#FFFFFF" }]}>Idoso</Text>
+          <Text style={styles.ageButtonText}>Idoso</Text>
         </TouchableOpacity>
       </View>
       <View style={styles.form}>
@@ -65,14 +74,14 @@ export default function Form() {
         />
         <TextInput
           style={[styles.input, { paddingLeft: 30, fontSize: 14, fontWeight: "300" }]}
-          placeholder="Digite Seu Peso"
+          placeholder="Digite seu peso"
           placeholderTextColor={"#000000"}
           keyboardType="numeric"
           value={weight}
           onChangeText={(text) => setWeight(text)}
         />
 
-        <TouchableOpacity style={styles.ButtonCalculator} onPress={() => validationIMC()}>
+        <TouchableOpacity style={styles.ButtonCalculator} onPress={() => handleValidationIMC()}>
           <Text style={styles.textButtonCalculator}>{textButton}</Text>
         </TouchableOpacity>
       </View>
