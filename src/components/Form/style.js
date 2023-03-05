@@ -84,6 +84,38 @@ const styles = StyleSheet.create({
     fontWeight:"300",
     color: "#000000", // cor padrão do texto
   },
+  dialogContainer: {
+    position: "absolute",
+    width: "100%",
+    height: "100%",
+    backgroundColor: "rgba(0, 0, 0, 0.7)",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  dialogBox: {
+    backgroundColor: "#ffffff",
+    borderRadius: 10,
+    padding: 20,
+    width: "80%",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  dialogBoxText: {
+    fontSize: 18,
+    fontWeight: "bold",
+    marginBottom: 10,
+  },
+  dialogBoxButton: {
+    backgroundColor: "#4eaf50",
+    borderRadius: 5,
+    paddingHorizontal: 10,
+    paddingVertical: 5,
+    marginTop: 20,
+  },
+  dialogBoxButtonText: {
+    color: "#ffffff",
+    fontWeight: "bold",
+  },
 });
 
 export default styles;

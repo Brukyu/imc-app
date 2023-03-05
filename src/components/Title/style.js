@@ -11,7 +11,7 @@ const styles = StyleSheet.create({
   textTitle: {
     color: "#ffffff",
     fontSize: 25,
-    fontWeight: "bold",
+    fontWeight: "500",
     fontFamily:'Roboto',
     letterSpacing: 2,
     textAlign: "center",
@@ -20,7 +20,7 @@ const styles = StyleSheet.create({
     color: "#ffffff",
     fontSize: 16,
     marginTop: 20,
-    fontFamily:'Roboto',
+    fontWeight:'300',
     letterSpacing: 1,
     textAlign: "center",
   }
